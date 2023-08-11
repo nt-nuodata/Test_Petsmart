@@ -43,31 +43,6 @@ spark.udf.register("IN",in_function)
 
 # COMMAND ----------
 
-# MAGIC %sql
-# MAGIC USE DELTA_TRAINING;
-# MAGIC -- UDF for TO_INTEGER
-# MAGIC CREATE
-# MAGIC OR REPLACE FUNCTION TO_INTEGER(value STRING, flag INTEGER DEFAULT 0) RETURNS INTEGER CONTAINS SQL DETERMINISTIC RETURN
-# MAGIC SELECT
-# MAGIC   CASE 
-# MAGIC     WHEN (flag = 0) THEN cast(round(cast(value as DECIMAL)) as INTEGER)
-# MAGIC     WHEN (flag > 0) THEN cast(value as INTEGER)
-# MAGIC   END
-
-# COMMAND ----------
-
-# MAGIC %sql
-# MAGIC -- UDF FOR TO_BIGINT
-# MAGIC CREATE
-# MAGIC OR REPLACE FUNCTION TO_BIGINT(value STRING, flag INTEGER DEFAULT 0) RETURNS BIGINT CONTAINS SQL DETERMINISTIC RETURN
-# MAGIC SELECT
-# MAGIC   CASE 
-# MAGIC     WHEN (flag = 0) THEN cast(round(cast(value as DECIMAL(38,10))) as BIGINT)
-# MAGIC     WHEN (flag > 0) THEN cast(value as BIGINT)
-# MAGIC   END
-
-# COMMAND ----------
-
 # UDF for IIF
 def iif(condition, value1, value2=None):
     if (condition ==1):
